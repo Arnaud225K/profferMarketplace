@@ -1,0 +1,164 @@
+{% load static %}
+<!-- header-start -->
+<!--<header class="header d-blue-bg fixed-top">-->
+<header class="header d-blue-bg">
+    <div class="header-top">
+        <div class="container">
+            <div class="header-inner">
+                <div class="row align-items-center">
+                    <div class="col-xl-5 col-lg-6">
+                        <div class="header-inner-start">
+                            <div class="header__currency border-right">
+                                <div class="s-name">
+                                    <span><i class="fa fa-location"></i></span>
+                                </div>
+                                <select>
+                                    <option>Екатеринбург</option>
+                                    <!--<option>Москва</option>-->
+                                </select>
+                            </div>
+                            <div class="support d-none d-sm-block">
+                                <p>Помощь ? <a href="#">+7 908 076 42 18</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-7 col-lg-6 d-none d-lg-block">
+                        <div class="header-inner-end text-md-end">
+                            <div class="ovic-menu-wrapper">
+                                <ul>
+                                    {% if user.id is None %}
+                                    <li><a href="#">Работа в Proffer</a></li>
+                                    <!--<li><a href="#"> Зарегистрироваться как продавец</a></li>-->
+                                    <li><a href="#"> Продавайте на Proffer</a></li>
+                                    <li><a href="{% url 'login' %}">Войти</a></li>
+                                    <li><a href="{% url 'register' %}"> Зарегистрироваться</a></li>
+                                    {% else %}
+                                    <li><a href="#">Работа в Proffer</a></li>
+                                    <li><a href="#"> Продавайте на Proffer</a></li>
+                                    <li><a href="{% url 'logout' %}"> Выйти</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-mid">
+        <div class="container">
+            <div class="heade-mid-inner">
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                        <div class="header__info">
+                            <div class="logo">
+                                <a href="{% url 'home' %}" class="logo-image"><img src="{% static 'assets/img/logo/logo-white.png' %}" alt="logo"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 d-none d-lg-block">
+                        <div class="header__search">
+                            <form action="{% url 'search' %}" method="GET">
+                                <div class="header__search-box">
+                                    <input class="search-input" type="text" placeholder="Что ищете?" name="keyword">
+                                    <button class="button" type="submit"><i class="far fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-8 col-sm-8">
+                        <div class="header-action">
+                            <!--<div class="widget-header">
+                                <small class="title text-muted">Welcome guest!</small>
+                                <div> 
+                                    <a href="#">Войти</a> <span class="dark-transp"> | </span>
+                                    <a href="#">  Зарегистрироваться</a>
+                                </div>
+                            </div>-->
+                            <div class="block-userlink">
+                                <a class="icon-link" href="{% url 'dashboard' %}">
+                                <i class="fa fa-user"></i>
+                                <span class="text">
+                                аккаунт </span>
+                                </a>
+                            </div>
+                            <div class="block-wishlist action">
+                                <a class="icon-link" href="{% url 'user_wishlist' %}">
+                                <i class="fa fa-heart"></i>
+                                <span id="wishlist_counter" class="count">{{ wishlist_count }}</span>
+                                <span class="text">
+                                избранное </span>
+                                </a>
+                            </div>
+
+                            <div class="block-chat action">
+                                <a class="icon-link" href="{% url 'user_message' %}">
+                                <i class="fa fa-comment"></i>
+                                <span class="count">0</span>
+                                <span class="text">
+                                сообщения </span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header__bottom">
+        <div class="container">
+            <div class="row g-0 align-items-center">
+                <div class="col-lg-3">                        
+                    <div class="cat__menu-wrapper side-border d-none d-lg-block">
+                        <div class="cat-toggle">
+                            <button type="button" class="cat-toggle-btn cat-toggle-btn-1"><i class="fal fa-bars"></i>Каталоги</button>
+                            <div class="cat__menu">
+                                <nav id="mobile-menu" style="display: block;">
+                                    <ul>
+                                        <li><a href="{% url 'catalogue' %}">Посмотреть всё<i class="far fa-angle-down"></i></a></li>
+                                        {% for category in links %}
+                                        <li>
+                                            <a href="#">{{category.category_name}} <i class="far fa-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a href="{{category.get_url}}">Посмотреть всё</a></li>
+                                                {% for cat in category.subcategory_set.all %}
+                                                    <li><a href="{{cat.get_url}}">{{cat.subcategory_name}}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                        {% empty %}
+                                        <li>
+                                            <a href="#">Добавить категорию<i class="far fa-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a href="#">Добавить подкатегорию</a></li>
+                                            </ul>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-3">
+                  <div class="header__bottom-left d-flex d-xl-block align-items-center">
+                    <div class="side-menu d-lg-none mr-20">
+                      <button type="button" class="side-menu-btn offcanvas-toggle-btn"><i class="fas fa-bars"></i></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-9">
+                    <div class="shopeing-text text-sm-end">
+                        <div class="slider-top-btn" data-animation="fadeInLeft" data-delay="1.5s">
+                            <!--<a href="{% url 'add_product' %}" class="st-btn-b-add b-radius">Разместить объявление</a>-->
+                            <a href="{% url 'add_product' %}" class="st-btn-b-add b-radius">Разместить объявление</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header-end -->

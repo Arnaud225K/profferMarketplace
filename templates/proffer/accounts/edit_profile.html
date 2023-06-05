@@ -1,0 +1,94 @@
+{% extends 'proffer/base.html' %}
+{% load static %}
+{% load product_price_tags %}
+{% block content %}
+
+<section id="about-us" class="py-5">
+    <div class="container">
+        {% include 'proffer/includes/alerts.html' %}
+        <div class="row">
+            <!--left sidebar-->
+            {% include 'proffer/includes/dashboard_sidebar.html' %}
+            <!--Content-->
+            <div class="col-md-9">
+                <div class="dashboard-area">
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- product-details-des-start -->
+                            <div class="product-details-des mb-60">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="product__details-des-tab">
+                                                <ul class="nav nav-tabs" id="productDesTab" role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link active" id="des-tab"
+                                                            data-bs-toggle="tab" data-bs-target="#des" type="button"
+                                                            role="tab" aria-controls="des" aria-selected="true">Мой профиль
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-content" id="prodductDesTaContent">
+                                        <div class="tab-pane fade active show" id="des" role="tabpanel"
+                                            aria-labelledby="des-tab">
+                                            <div class="product__details-des-wrapper">
+                                                <div class="row">
+                                                        <div class="login-form-container">
+                                                            <div class="basic-login">
+                                                                <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
+                                                                    {% csrf_token %}
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label>Имя</label>
+                                                                            <!--<input id="name" type="text" class="form-control" placeholder="введите имя..." name="имя">-->
+                                                                            {{user_form.first_name}}
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label>Фамилия</label>
+                                                                            {{user_form.last_name}}                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label>Телефон</label>
+                                                                            {{user_form.phone_number}}
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label>Фотография</label>
+                                                                            {{profile_form.profile_picture}}
+                                                                            <label class='text-danger'> {{ profile_form.profile_picture.errors }}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label>Город</label>
+                                                                            {{profile_form.city}}
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label>Адрес</label>
+                                                                            {{profile_form.address_line}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <input class="tp-in-btn w-100" type="submit" value="Обновить">
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- product-details-des-end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,617 @@
+{% extends 'proffer/base.html' %}
+{% load static %}
+{% load product_price_tags %}
+{% block content %}
+
+        <!-- offcanvas area start -->
+        <div class="offcanvas__area">
+            <div class="offcanvas__wrapper">
+            <div class="offcanvas__close">
+                <button class="offcanvas__close-btn" id="offcanvas__close-btn">
+                    <i class="fal fa-times"></i>
+                </button>
+            </div>
+            <div class="offcanvas__content">
+                <div class="offcanvas__logo mb-40">
+                    <a href="{% url 'home' %}">
+                    <img src="{% static 'assets/img/logo/logo.png' %}" alt="logo">
+                    </a>
+                </div>
+                <div class="offcanvas__search mb-25">
+                    <form action="#">
+                        <input type="text" placeholder="What are you searching for?">
+                        <button type="submit" ><i class="far fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="mobile-menu fix"></div>
+                <div class="offcanvas__action">
+    
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- offcanvas area end -->      
+        <div class="body-overlay"></div>
+        <!-- offcanvas area end -->
+        <main>
+            <!-- slider-area-start -->
+            <div class="slider-area">
+                <div class="swiper-container slider__active">
+                    <div class="slider-wrapper swiper-wrapper">
+                        {% for slider in all_sliders %}
+                        <div class="single-slider swiper-slide slider-height d-flex align-items-center" data-background="/media/{{slider.image}}">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-xl-5">
+                                        <div class="slider-content">
+                                            <div class="slider-top-btn" data-animation="fadeInLeft" data-delay="1.5s">
+                                                <a href="#" class="st-btn b-radius">{{slider.discount}}</a>
+                                            </div>
+                                            <h2 data-animation="fadeInLeft" data-delay="1.7s" class="pt-15 slider-title pb-5">{{slider.title}}</h2>
+                                            <p class="pr-20 slider_text" data-animation="fadeInLeft" data-delay="1.9s">{{slider.intro}}</p>
+                                            <div class="slider-bottom-btn mt-75">
+                                                <a data-animation="fadeInUp" data-delay="1.15s" href="#" class="st-btn-b b-radius">Посмотреть</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /single-slider -->
+                        {% empty %}
+                        <div class="single-slider swiper-slide slider-height d-flex align-items-center" data-background="{% static 'assets/img/slider/01-slide-2.jpg' %}">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-xl-5">
+                                        <div class="slider-content">
+                                            <div class="slider-top-btn" data-animation="fadeInLeft" data-delay="1s">
+                                                <a href="#" class="st-btn b-radius">Добавить заголовок</a>
+                                            </div>
+                                            <h2 data-animation="fadeInLeft" data-delay="1.5s" class="pt-15 slider-title pb-5">Добавить заголовок продажи </h2>
+                                            <p class="pr-20 slider_text" data-animation="fadeInLeft" data-delay="1.7s">Добавить описание</p>
+                                            <div class="slider-bottom-btn mt-75">
+                                                <a data-animation="fadeInUp" data-delay="1.9s" href="#" class="st-btn-b b-radius">Посмотреть</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /single-slider -->
+                        {% endfor %}
+                        <div class="main-slider-paginations"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- slider-area-end -->
+    
+            <!-- features__area-start -->
+            <section class="features__area pt-20">
+                <div class="container">
+                    <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-sm-2 row-cols-1 gx-0">
+                        <div class="col">
+                            <div class="features__item d-flex white-bg">
+                                <div class="features__icon mr-10">
+                                    <i class="fal fa-truck"></i>
+                                </div>
+                                <div class="features__content">
+                                    <h6>БЫСТРАЯ ДОСТАВКА</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="features__item d-flex white-bg">
+                                <div class="features__icon mr-10">
+                                    <i class="fal fa-money-check"></i>
+                                </div>
+                                <div class="features__content">
+                                    <h6>БЕЗОПАСНЫЙ ПЛАТЕЖ</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="features__item d-flex white-bg">
+                                <div class="features__icon mr-10">
+                                    <i class="fal fa-comments-alt"></i>
+                                </div>
+                                <div class="features__content">
+                                    <h6>24/7 ЦЕНТР ПОМОЩИ</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="features__item features__item-last d-flex white-bg">
+                                <div class="features__icon mr-10">
+                                    <i class="fad fa-user-headset"></i>
+                                </div>
+                                <div class="features__content">
+                                    <h6>ДРУЖЕСТВЕННЫЕ УСЛУГИ</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- features__area-end -->
+    
+        <!-- banner__area-start -->
+        <section class="banner__area pt-20 pb-10">
+            <div class="container">
+                <div class="row">
+                    {% for banner in banners_bloc_1 %}
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="banner__item p-relative w-img mb-30">
+                            <div class="banner__img">
+                                {% if banner.link %}
+                                <a href="{{banner.link}}"><img src="/media/{{banner.image}}" alt=""></a>
+                                {% else %}
+                                <a href="#"><img src="/media/{{banner.image}}" alt=""></a>
+                                {% endif %}
+                            </div>
+                            <div class="banner__content">
+                                {% if banner.link %}
+                                <h6><a href="{{banner.link}}">{{banner.title}}</a></h6>
+                                {% else %}
+                                <h6><a href="#">{{banner.title}}</a></h6>                                
+                                {% endif %}
+                                <p>{{banner.intro}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="banner__item p-relative w-img mb-30">
+                            <div class="banner__img">
+                                <a href="#"><img src="{% static 'assets/img/banner_default_img.png' %}" alt=""></a>
+                            </div>
+                            <div class="banner__content">
+                                <h6><a href="#">нет заголовка</a></h6>
+                                <p>нет описания</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+        <!-- banner__area-end -->
+    
+        <!-- topsell__area-start -->
+        <section class="topsell__area-1 pt-15">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="section__head d-flex justify-content-between mb-30">
+                            <div class="section__title">
+                                <h5 class="st-titile">Рекомендации</h5>
+                            </div>
+                            <div class="button-wrap">
+                                <a href="{% url 'catalogue_recommended_product' %}">Посмотреть все рекомендации <i class="fal fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="product-bs-slider">
+                        <div class="product-slider swiper-container">
+                            <div class="swiper-wrapper">
+                                {% for product in recommended_product %}
+                                <div class="product__item swiper-slide">
+                                    <div class="product__thumb fix">
+                                        {% if product.product_image %}
+                                        <div class="product-image w-img">
+                                            <a href="{{product.get_absolute_url}}">
+                                                <img src="/media/{{product.product_image}}" alt="product">
+                                            </a>
+                                        </div>
+                                        {% else %}
+                                        <div class="product-image w-img">
+                                            <a href="{{product.get_absolute_url}}">
+                                                <img src="{% static 'assets/img/default_prod_img.png' %}" alt="product">
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                        <div class="product__offer">
+                                            {% if product.discount %}
+                                            <span class="discount">{{product.discount}}%</span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="product-action">
+                                            <button class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId-{{product.id}}">
+                                                <i class="fal fa-eye"></i>
+                                                <i class="fal fa-eye"></i>
+                                            </button>
+                                            {% if product.user != request.user  %}
+                                            <button class="icon-box icon-box-1 add_to_wishlist" data-id="{{product.id}}" data-url="{% url 'add_to_wishlist' product.id %}">
+                                                <i class="fal fa-heart"></i>
+                                                <i class="fal fa-heart"></i>
+                                            </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="product__content">
+                                        <h6><a href="{{product.get_absolute_url}}">{{product.product_name|truncatewords:10}}</a></h6>
+                                        {% if product.discount %}
+                                            <div class="price mb-10">
+                                                <span>{% call_sellprice product.price product.discount %} ₽</span>&nbsp;<del>{{product.price}} ₽</del>
+                                            </div>
+                                        {% else %}
+                                        <div class="price mb-10">
+                                            <span>{{product.price}} ₽</span>
+                                        </div>
+                                        {% endif %}
+
+                                        <div class="progress-rate">
+                                            <span>Екатеринбург, {{product.address}}</span>
+                                        </div>
+                                        <div class="progress-rate">
+                                            <span>17 апреля 19:57</span>
+                                        </div>
+                                    </div>
+                                    {% if product.user != request.user  %}
+                                    <div class="product__add-cart text-center">
+                                        <a href="{% url 'user_message_page' product.user.username %}" class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
+                                         Написать
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% empty %}
+                                <div class="product__item swiper-slide">
+                                    <div class="product__thumb fix">
+                                        <div class="product-image w-img">
+                                            <a href="#">
+                                                <img src="{% static 'assets/img/default_prod_img.png' %}" alt="product">
+                                            </a>
+                                        </div>
+                                        <div class="product__offer">
+                                        <span class="discount">-</span>
+                                        </div>
+                                        <div class="product-action">
+                                            <button class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId">
+                                                <i class="fal fa-eye"></i>
+                                                <i class="fal fa-eye"></i>
+                                            </button>
+                                            <button class="icon-box icon-box-1">
+                                                <i class="fal fa-heart"></i>
+                                                <i class="fal fa-heart"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="product__content">
+                                        <h6><a href="#">товар не найден</a></h6>
+                                        <div class="price mb-10">
+                                            <span>цена не найдена</span>
+                                        </div>
+                                    </div>
+                                    <div class="product__add-cart text-center">
+                                        <button type="button" class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
+                                        Написать
+                                        </button>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <!-- If we need navigation buttons -->
+                        <div class="bs-button bs-button-prev"><i class="fal fa-chevron-left"></i></div>
+                        <div class="bs-button bs-button-next"><i class="fal fa-chevron-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- topsell__area-end -->
+
+        <!-- banner__area-start -->
+        <section class="banner__area banner__area-d pb-10">
+            <div class="container">
+                <div class="row">
+                    {% for banner in banners_bloc_2 %}
+                    <div class="col-xl-6 col-lg-6 col-md-12">
+                        <div class="banner__item p-relative w-img mb-30">
+                            <div class="banner__img">
+                                {% if banner.link %}
+                                <a href="{{banner.link}}"><img src="/media/{{banner.image}}" alt="banner"></a>
+                                {% else %}
+                                <a href="#"><img src="/media/{{banner.image}}" alt="banner"></a>
+                                {% endif %}
+                            </div>
+                            <div class="banner__content">
+                                {% if banner.link %}
+                                <h6><a href="{{banner.link}}">{{banner.title}}</a></h6>
+                                {% else %}
+                                <h6><a href="#">{{banner.title}}</a></h6>                                
+                                {% endif %}
+                                <p>{{banner.intro}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-xl-6 col-lg-6 col-md-12">
+                        <div class="banner__item p-relative w-img mb-30">
+                            <div class="banner__img">
+                                <a href="#"><img src="{% static 'assets/img/banner_default_img_2.png' %}" alt=""></a>
+                            </div>
+                            <div class="banner__content">
+                                <h6><a href="#">нет заголовка</a></h6>
+                                <p>нет описания</p>
+                            </div>
+                        </div>
+                    </div>                    
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <!-- banner__area-end -->
+
+        <!-- request__area-start -->
+        <section class="topsell__area-2 pt-15 pb-40">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="section__head d-flex justify-content-between mb-30">
+                            <div class="section__title">
+                                <h5 class="st-titile">Заявки</h5>
+                            </div>
+                            <div class="button-wrap">
+                                <a href="{% url 'catalogue_resquest_buy' %}">Посмотреть все заявки <i class="fal fa-chevron-right"></i></a>
+                            </div>
+                        </div>                                              
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="tab-content" id="flast-sell-tabContent">
+                            <div class="tab-pane fade active show" id="computer" role="tabpanel" aria-labelledby="computer-tab">
+                                <div class="product-bs-slider-2">
+                                    <div class="product-slider-2 swiper-container">
+                                        <div class="swiper-wrapper">
+                                            {% for product in request_buy_product %}
+                                            <div class="product__item swiper-slide">
+                                                <div class="product__thumb fix">
+                                                    {% if product.product_image %}
+                                                    <div class="product-image w-img">
+                                                        <a href="{{product.get_absolute_url}}">
+                                                            <img src="/media/{{product.product_image}}" alt="product">
+                                                        </a>
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="product-image w-img">
+                                                        <a href="{{product.get_absolute_url}}">
+                                                            <img src="{% static 'assets/img/default_prod_img.png' %}" alt="product">
+                                                        </a>
+                                                    </div>
+                                                    {% endif %}
+                                                    <div class="product__offer">
+                                                        {% if product.discount %}
+                                                        <span class="discount">{{product.discount}}%</span>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="product-action">
+                                                        <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId-{{product.id}}">
+                                                            <i class="fal fa-eye"></i>
+                                                            <i class="fal fa-eye"></i>
+                                                        </a>
+                                                        {% if product.user != request.user  %}
+                                                        <button class="icon-box icon-box-1 add_to_wishlist" data-id="{{product.id}}" data-url="{% url 'add_to_wishlist' product.id %}">
+                                                            <i class="fal fa-heart"></i>
+                                                            <i class="fal fa-heart"></i>
+                                                        </button>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="product__content">
+                                                    <h6><a href="{{product.get_absolute_url}}">{{product.product_name|truncatewords:10}}</a></h6>
+                                                    {% if product.discount %}
+                                                        <div class="price mb-10">
+                                                            <span>{% call_sellprice product.price product.discount %} ₽</span>&nbsp;<del>{{product.price}} ₽</del>
+                                                        </div>
+                                                    {% else %}
+                                                    <div class="price mb-10">
+                                                        <span>{{product.price}} ₽</span>
+                                                    </div>
+                                                    {% endif %}
+            
+                                                    <div class="progress-rate">
+                                                        <span>Екатеринбург, {{product.address}}</span>
+                                                    </div>
+                                                    <div class="progress-rate">
+                                                        <span>17 апреля 19:57</span>
+                                                    </div>
+                                                </div>
+                                                {% if product.user != request.user  %}
+                                                <div class="product__add-cart text-center">
+                                                    <a href="{% url 'user_message_page' product.user.username %}" class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
+                                                     Написать
+                                                    </a>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            {% empty %}
+                                            <div class="product__item swiper-slide">
+                                                <div class="product__thumb fix">
+                                                    <div class="product-image w-img">
+                                                        <a href="#">
+                                                            <img src="{% static 'assets/img/default_prod_img.png' %}" alt="product">
+                                                        </a>
+                                                    </div>
+                                                    <div class="product__offer">
+                                                        <span class="discount">-</span>
+                                                    </div>
+                                                    <div class="product-action">
+                                                        <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId">
+                                                            <i class="fal fa-eye"></i>
+                                                            <i class="fal fa-eye"></i>
+                                                        </a>
+                                                        <a href="#" class="icon-box icon-box-1">
+                                                            <i class="fal fa-heart"></i>
+                                                            <i class="fal fa-heart"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="product__content">
+                                                    <h6><a href="#">товар не найден</a></h6>
+                                                    <div class="price mb-10">
+                                                        <span>цена не найдена</span>
+                                                    </div>
+                                                </div>
+                                                <div class="product__add-cart text-center">
+                                                    <button type="button" class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
+                                                    Написать
+                                                    </button>
+                                                </div>
+                                            </div>                                            
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <!-- If we need navigation buttons -->
+                                    <div class="bs-button bs2-button-prev"><i class="fal fa-chevron-left"></i></div>
+                                    <div class="bs-button bs2-button-next"><i class="fal fa-chevron-right"></i></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- request__area-end -->
+        <!-- moveing-text-area-start -->
+        <section class="moveing-text-area">
+            <div class="container">
+                <div class="ovic-running">
+                    <div class="wrap">
+                        <div class="inner">
+                            <p class="item">Здесь вы найдете то, что искали!</p>
+                            <p class="item"> вы сможете разместить объявление на покупку</p>
+                            <p class="item">вы сможете купить или продать любые автозапчасти и услуги</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- moveing-text-area-end -->        
+
+        <!-- featured-start -->
+        <section class="featured light-bg pt-55 pb-40">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="section__head d-flex justify-content-between mb-30">
+                            <div class="section__title">
+                                <h5 class="st-titile">Товары и Услуги</h5>
+                            </div>
+                            <div class="button-wrap">
+                                <a href="{% url 'catalogue' %}">Посмотреть все объявления <i class="fal fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12">
+                        <div class="row">
+                            {% for product in product_and_service %}
+                                <div class="col-md-4">
+                                    <div class="single-features-item b-radius mb-20">
+                                        <div class="row  g-0 align-items-center">
+                                            <div class="col-6">
+                                                <div class="features-thum">
+                                                    {% if product.product_image %}
+                                                    <div class="features-product-image w-img">
+                                                        <a href="{{product.get_absolute_url}}"><img src="/media/{{product.product_image}}" alt=""></a>
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="features-product-image w-img">
+                                                        <a href="{{product.get_absolute_url}}"><img src="{% static 'assets/img/default_prod_img.png' %}" alt=""></a>
+                                                    </div>                                                
+                                                    {% endif %}
+                                                    <div class="product__offer">
+                                                        {% if product.discount %}
+                                                        <span class="discount">{{product.discount}}%</span>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="product-action">
+                                                        <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId-{{product.id}}">
+                                                            <i class="fal fa-eye"></i>
+                                                            <i class="fal fa-eye"></i>
+                                                        </a>
+                                                        {% if product.user != request.user  %}
+                                                        <button class="icon-box icon-box-1 add_to_wishlist" data-id="{{product.id}}" data-url="{% url 'add_to_wishlist' product.id %}">
+                                                            <i class="fal fa-heart"></i>
+                                                            <i class="fal fa-heart"></i>
+                                                        </button>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="product__content product__content-d">
+                                                    <h6><a href="{{product.get_absolute_url}}">{{product.product_name|truncatewords:2}}</a></h6>
+                                                    {% if product.discount %}
+                                                    <div class="price d-price">              
+                                                        <span>{% call_sellprice product.price product.discount %} ₽ <del>{{product.price}} ₽</del></span>                    
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="price d-price">
+                                                        <span>{{product.price}} ₽</span>
+                                                    </div>                                                
+                                                    {% endif %}
+                                                    <div class="progress-rate">
+                                                        <span>Екатеринбург, {{product.address|truncatewords:1}}</span>
+                                                    </div>
+                                                    <div class="progress-rate">
+                                                        <span>17 апреля 19:57</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <div class="col-md-4">
+                                    <div class="single-features-item b-radius mb-20">
+                                        <div class="row  g-0 align-items-center">
+                                            <div class="col-6">
+                                                <div class="features-thum">
+                                                    <div class="features-product-image w-img">
+                                                        <a href="#"><img src="{% static 'assets/img/default_prod_img.png' %}" alt=""></a>
+                                                    </div>                                                
+                                                    <div class="product__offer">
+                                                        <span class="discount">-</span>
+                                                    </div>
+                                                    <div class="product-action">
+                                                        <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#">
+                                                            <i class="fal fa-eye"></i>
+                                                            <i class="fal fa-eye"></i>
+                                                        </a>
+                                                        <a href="#" class="icon-box icon-box-1">
+                                                            <i class="fal fa-heart"></i>
+                                                            <i class="fal fa-heart"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="product__content product__content-d">
+                                                    <h6><a href="#">товар не найден</a></h6>
+
+                                                    <div class="price d-price">
+                                                        <span>цена не найдена</span>
+                                                    </div>                                                
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                       
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- featured-end -->
+  
+        {% include 'proffer/includes/modal.html' %}
+    </main>
+
+{% endblock %}

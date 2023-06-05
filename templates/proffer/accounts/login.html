@@ -1,0 +1,69 @@
+{% extends 'proffer/base.html' %}
+{% load static %}
+{% load product_price_tags %}
+{% block content %}
+
+
+<!-- ============================ COMPONENT LOGIN   ================================= -->
+
+    {% if request.GET.command == 'verification' %}
+        <div class="account-area mt-70 mb-70">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8">
+                        <div class="login-form-container">
+                            <div class="basic-login">
+                                <span>Спасибо, что зарегистрировались. На email [{{request.GET.email}}] отправлено письмо. Перейдите
+                                    по ссылке в письме, для активирования своего аккаунта.</span>
+                                <br><br>
+                                <p class="sign_up_bottom text-center mt-4">Аккаунт уже подтвержден? <a href="{% url 'login' %}">войти</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+
+        <!-- account-area-start -->
+        <div class="account-area mt-70 mb-70">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                        <div class="login-form-container">
+                            <div class="basic-login">
+                                <h5>Войдите в аккаунт</h5>
+                                {% include 'proffer/includes/alerts.html' %}
+                                <form action="{% url 'login' %}" method="POST">
+                                    {% csrf_token %}
+
+                                    <label for="email-id">Электронная почта  <span>*</span></label>
+                                    <input id="email-id" type="email" placeholder="введите логин..." name="email">
+                                    <label for="password">Пароль <span>*</span></label>
+                                    <input id="password" type="password" placeholder="введите пароль..." name="password">
+                                    <div class="login-action mb-10 fix">
+                                        <span class="forgot-login f-right">
+                                        <a href="{% url 'forgotPassword' %}">Забыли пароль?</a>
+                                        </span>
+                                    </div>
+                                    <div class="login-action mb-10 fix">
+                                        <p>При входе вы соглашаетесь с нашими <a href="#">Условия использования.</a>.</p>
+                                    </div>
+                                    <!--<a href="#" class="tp-in-btn w-100">войти</a>-->
+                                    <input class="tp-in-btn w-100" type="submit" value="войти">
+                                </form>
+                                <p class="sign_up_bottom text-center mt-4">Еще нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+            </div>
+        </div>
+        <!-- account-area-end -->
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% load static %}
+
+<div class="col-md-3 pr-md-4">
+
+        <div class="profiles bg_bloc_picture p-3 rounded text-center shadow-sm">
+            <div class="avatars">
+                <a href="#">
+                    {% if user.userprofile.profile_picture %}
+                        <img src="{{userprofile.profile_picture.url}}" alt="user circle image" class="avatar-lg rounded-circle img-fluid" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="user picture" width="80" height="80">
+                    {% else %}
+                        <img src="{% static 'assets/img/user_profile_default.png' %}" alt="default user circle image" class="avatar-lg rounded-circle img-fluid" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="user picture" width="80" height="80">
+                    {% endif %}
+
+                </a>
+            </div>
+            <div class="names">
+                <h5 class="title text-light mt-10">Привет ! {{user.first_name}}</h5>
+            </div>
+        </div>
+
+    <div class="sidebar-left">
+        <!--sidebar menu-->
+        <ul class="list-unstyled sidebar-menu pl-md-2 pr-md-0">
+            <li>
+                <a class="sidebar-item {% if '/accounts/' == request.path %} active {% endif %} d-flex justify-content-between align-items-center" href="{% url 'dashboard' %}">
+                    Дашборд
+                    <span class="fas fa-tachometer-alt"></span>
+                </a>
+            </li>
+            <li>
+                <a class="sidebar-item {% if '/user_product/' in request.path %} active {% endif %} d-flex justify-content-between align-items-center" href="{% url 'user_product' %}">
+                    Мои объявления
+                    <span class="fas fa-scroll"></span>
+                </a>
+            </li>
+            <!--<li>
+                <a class="sidebar-item d-flex justify-content-between align-items-center" href="#">
+                    Мои заказы
+                    <span class="fas fa-copy"></span>
+                </a>
+            </li>-->
+            <li>
+                <a class="sidebar-item {% if '/user_wishlist/' in request.path %} active {% endif %} d-flex justify-content-between align-items-center" href="{% url 'user_wishlist' %}">
+                    Избранное
+                    <!--<span class="side-notif" title="1 new comment">1</span>-->
+                    <span class="fas fa-heart"></span>
+                </a>
+            </li>
+            <li>
+                <a class="sidebar-item {% if '/user_message/' in request.path %} active {% endif %} d-flex justify-content-between align-items-center" href="{% url 'user_message' %}">
+                    Мои сообщения
+                    <!--<span class="side-notif" title="1 new messages">1</span>-->
+                    <span class="fas fa-comment"></span>
+                </a>
+            </li>
+            <li>
+                <a class="sidebar-item {% if '/notification/' in request.path %} active {% endif %} d-flex justify-content-between align-items-center" href="{% url 'notification' %}">
+                    Уведомления
+                    <span class="fas fa-bell"></span>
+                </a>
+            </li>
+            <li>
+                <a class="sidebar-item {% if '/edit_profile/' in request.path %} active {% endif %} d-flex justify-content-between align-items-center" href="{% url 'edit_profile' %}">
+                    Профиль
+                    <span class="fas fa-cog"></span>
+                </a>
+            </li>
+            <!--<li>
+                <a class="sidebar-item d-flex justify-content-between align-items-center" href="{% url 'edit_profile' %}">
+                    Изменить пароль
+                    <span class="fas fa-cog"></span>
+                </a>
+            </li>-->
+            <li>
+                <a class="sidebar-item d-flex justify-content-between align-items-center" href="{% url 'logout' %}">
+                    Выйти
+                    <span class="fas fa-sign-out-alt"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

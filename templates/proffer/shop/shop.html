@@ -1,0 +1,534 @@
+{% extends 'proffer/base.html' %}
+{% load static %}
+{% load product_price_tags %}
+{% block content %}
+
+<main>
+    <!-- breadcrumb__area-start -->
+    <section class="breadcrumb__area box-plr-75">
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="breadcrumb__wrapper">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Товары и услуги</li>
+                            </ol>
+                          </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb__area-end -->
+
+    <!-- shop-area-start -->
+    <div class="shop-area mb-20">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4">
+                    <div class="product-widget mb-30">
+                        <h5 class="pt-title">Марки</h5>
+                        <div class="widget-category-list mt-20">
+                            <form action="#">
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="cat-item-1" name="cat-item">
+                                    <label for="cat-item-1">Acura <span>(2)</span></label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="cat-item-2" name="cat-item">
+                                    <label for="cat-item-2">BMW <span>(1)</span></label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="cat-item-3" name="cat-item">
+                                    <label for="cat-item-3">Cadillac <span>(0)</span></label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="cat-item-4" name="cat-item">
+                                    <label for="cat-item-4">Kia <span>(2)</span></label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="cat-item-5" name="cat-item">
+                                    <label for="cat-item-5">Mazda <span>(3)</span></label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="cat-item-7" name="cat-item">
+                                    <label for="cat-item-7">Nissan <span>(0)</span></label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="cat-item-8" name="cat-item">
+                                    <label for="cat-item-8">Hyundai <span>(5)</span></label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="cat-item-9" name="cat-item">
+                                    <label for="cat-item-9">Citroen<span>(0)</span></label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="cat-item-10" name="cat-item">
+                                    <label for="cat-item-10">Honda <span>(0)</span></label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="cat-item-11" name="cat-item">
+                                    <label for="cat-item-11">Mitsubishi <span>(0)</span></label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="cat-item-12" name="cat-item">
+                                    <label for="cat-item-12">Renault <span>(0)</span></label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="cat-item-13" name="cat-item">
+                                    <label for="cat-item-13">Toyota <span>(0)</span></label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--<div class="product-widget mb-30">
+                        <h5 class="pt-title">Стоимость</h5>
+                        <div class="price__slider mt-30">
+                            <div id="slider-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span></div>
+                            <div>
+                                <form action="#" class="s-form mt-20">
+                                    <input type="text" id="amount" readonly="">
+                                    <button type="submit" class="tp-btn-square-lg">Фильтровать</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>-->
+                        <div class="product-widget mb-30">
+                            <h5 class="pt-title">Стоимость</h5>
+                            <div class="price__slider mt-30">
+                               <input type="range" class="multi-range success" style="color:red;" value="{{FilterPrice}}" min="{{min_price.price__min}}" max="{{max_price.price__max}}" id="rangeInput" oninput="maxPrice.value=this.value" width="400px;"/>
+                               <div>
+                                  <form action="" class="s-form mt-20" method="GET">
+                                     <input type="number" id="maxPrice" readonly="" name="FilterPrice" onkeyup="rangeInput.value=this.value" value={{FilterPrice}}{{minMaxPrice.price__min}}><b>₽</b>
+                                     <button type="submit" id="priceFilterBtn" class="tp-btn-square-lg">Фильтровать</button>
+                                  </form>
+                               </div>
+                            </div>
+                         </div>
+                    
+                    <div class="product-widget mb-30">
+                        <h5 class="pt-title">Тип объявления</h5>
+                        <div class="product__color mt-20">
+                            <form action="#">
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="choose-item-11" name="choose-item">
+                                    <label for="choose-item-11">Ищу</label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="choose-item-12" name="choose-item">
+                                    <label for="choose-item-12">Предлагаю</label>
+                                </div>
+                            </form>
+                      </div>
+                    </div>
+                    
+                    <div class="product-widget mb-30">
+                        <h5 class="pt-title">Сортировать по</h5>
+                        <div class="widget-category-list mt-20">
+                            <form action="#">
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="brand-item-1" name="brand-item">
+                                    <label for="brand-item-1">По умолчанию</label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="brand-item-2" name="brand-item">
+                                    <label for="brand-item-2">По дате</label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="brand-item-3" name="brand-item">
+                                    <label for="brand-item-3">Дешевле</label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="brand-item-4" name="brand-item">
+                                    <label for="brand-item-4">Дороже</label>
+                                </div>
+                                <div class="single-widget-category">
+                                    <input type="checkbox" id="brand-item-5" name="brand-item">
+                                    <label for="brand-item-5">По удаленности</label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="product-widget mb-30">
+                        <h5 class="pt-title">Специальная акция</h5>
+                        <div class="product__sm mt-20">
+                            <ul>
+                                {% for product in product_sales %}
+                                <li class="product__sm-item d-flex align-items-center">
+                                    {% if product.product_image %}
+                                    <div class="product__sm-thumb mr-10">
+                                        <a href="{{product.get_absolute_url}}">
+                                            <img src="/media/{{product.product_image}}" alt="image shop">
+                                        </a>
+                                    </div>
+                                    {% else %}
+                                    <div class="product__sm-thumb mr-20">
+                                        <a href="#">
+                                            <img src="{% static 'assets/img/default_prod_img.png' %}" alt="">
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                    <div class="product__sm-content">
+                                        <h5 class="product__sm-title">
+                                            <a href=" #">{{product.product_name|truncatewords:2}}</a>
+                                        </h5>
+                                        {% if product.discount %}
+                                        <div class="product__sm-price">
+                                            <span class="price">{% call_sellprice product.price product.discount %} ₽ <del>{{product.price}} ₽</del></span>
+                                        </div>
+                                        {% else %}
+                                        <span class="price">{{product.price}} ₽</span>                                        
+                                        {% endif %}
+                                    </div>
+                                </li>
+                                {% empty %}
+                                <li class="product__sm-item d-flex align-items-center">
+                                    <div class="product__sm-thumb mr-10">
+                                        <a href="#">
+                                            <img src="{% static 'assets/img/default_prod_img.png' %}" alt="image sales">
+                                        </a>
+                                    </div>
+                                    <div class="product__sm-content">
+                                        <h5 class="product__sm-title">
+                                            <a href=" #">товар не найден</a>
+                                        </h5>
+                                        <div class="product__sm-price">
+                                            <span class="price">цена не найдена</span>
+                                        </div>
+                                    </div>
+                                </li>                                
+                                {% endfor %}
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8">
+                    <!--<div class="shop-banner mb-30">
+                        <div class="banner-image">
+                            <img class="banner-l" src="{% static 'assets/img/banner/sl-banner.jpg' %}" alt="">
+                            <div class="banner-content text-center">
+                                <p class="banner-text mb-30">Поторопись! <br> Бесплатная доставка всех заказов от 2000₽</p>
+                                <a href=" #" class="st-btn-d b-radius">посмотреть</a>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="product-lists-top">
+                        <div class="product__filter-wrap">
+                            <div class="row align-items-center">
+                                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                                    <div class="product__filter d-sm-flex align-items-center">
+                                        <div class="product__col">
+                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                  <button class="nav-link active" id="FourCol-tab" data-bs-toggle="tab" data-bs-target="#FourCol" type="button" role="tab" aria-controls="FourCol" aria-selected="true">
+                                                    <i class="fal fa-th"></i>
+                                                  </button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                  <button class="nav-link" id="FiveCol-tab" data-bs-toggle="tab" data-bs-target="#FiveCol" type="button" role="tab" aria-controls="FiveCol" aria-selected="false">
+                                                    <i class="fal fa-list"></i>
+                                                  </button>
+                                                </li>
+                                              </ul>
+                                        </div>
+                                        <div class="product__result pl-60">
+                                            <p><b>{{product_count}}</b> объявлений нашли</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                                    <div class="product__filter-right d-flex align-items-center justify-content-md-end">
+                                        <div class="product__sorting product__show-no">
+                                            <select>
+                                                <option>10</option>
+                                                <option>20</option>
+                                                <option>30</option>
+                                                <option>40</option>
+                                            </select>
+                                        </div>
+                                        <div class="product__sorting product__show-position ml-20">
+                                            <select>
+                                                <option>Latest</option>
+                                                <option>New</option>
+                                                <option>Up comeing</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>-->
+                            </div>
+                    </div>
+                    </div>
+                    <div class="tab-content" id="productGridTabContent">
+                        <div class="tab-pane fade  show active" id="FourCol" role="tabpanel" aria-labelledby="FourCol-tab">
+                            <div class="tp-wrapper">
+                                <div class="row g-0">
+                                    {% for product in shop_product %}
+                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                        <div class="product__item product__item-d">
+                                            <div class="product__thumb fix">
+                                                {% if product.product_image %}
+                                                <div class="product-image w-img">
+                                                    <a href="{{product.get_absolute_url}}">
+                                                        <img src="/media/{{product.product_image}}" alt="product">
+                                                    </a>
+                                                </div>
+                                                {% else %}
+                                                <div class="product-image w-img">
+                                                    <a href="{{product.get_absolute_url}}">
+                                                        <img src="{% static 'assets/img/default_prod_img.png' %}" alt="product">
+                                                    </a>
+                                                </div>                                                
+                                                {% endif %}
+                                                <div class="product__offer">
+                                                    {% if product.discount %}
+                                                    <span class="discount">{{product.discount}}%</span>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="product-action">
+                                                    <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId-{{forloop.counter}}">    
+                                                        <i class="fal fa-eye"></i>
+                                                        <i class="fal fa-eye"></i>
+                                                    </a>
+                                                    {% if product.user != request.user  %}
+                                                    <button class="icon-box icon-box-1 add_to_wishlist" data-id="{{product.id}}" data-url="{% url 'add_to_wishlist' product.id %}">
+                                                        <i class="fal fa-heart"></i>
+                                                        <i class="fal fa-heart"></i>
+                                                    </button>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="product__content-3">
+                                                <h6><a href="{{product.get_absolute_url}}">{{product.product_name|truncatewords:2}}</a></h6>
+                                                {% if product.discount %}
+                                                <div class="price mb-10">
+                                                    <span>{% call_sellprice product.price product.discount %} ₽</span>&nbsp;<del>{{product.price}} ₽</del>
+                                                </div>
+                                                {% else %}
+                                                <div class="price mb-10">
+                                                    <span>{{product.price}} ₽</span>
+                                                </div>
+                                                {% endif %}
+
+                                                <div class="localise-time mb-5">
+                                                    <span>Екатеринбург, {{product.address}}</span>
+                                                </div>
+                                                <div class="localise-time">
+                                                    <span>Вчера 09:34</span>
+                                                </div>
+                                            </div>
+                                            {% if product.user != request.user  %}
+                                            <div class="product__add-cart-s text-center">
+                                                <button type="button" class="cart-btn d-flex mb-10 align-items-center justify-content-center w-100">
+                                                Написать
+                                                </button>
+                                            </div>
+                                            {% endif  %}
+                                            
+                                        </div>
+                                    </div>
+                                    {% empty %}
+                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                        <div class="product__item product__item-d">
+                                            <div class="product__thumb fix">
+                                                <div class="product-image w-img">
+                                                    <a href=" #">
+                                                        <img src="{% static 'assets/img/default_prod_img.png' %}" alt="product">
+                                                    </a>
+                                                </div>
+                                                <div class="product-action">
+                                                    <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#">
+                                                        <i class="fal fa-eye"></i>
+                                                        <i class="fal fa-eye"></i>
+                                                    </a>
+                                                    <a href="#" class="icon-box icon-box-1">
+                                                        <i class="fal fa-heart"></i>
+                                                        <i class="fal fa-heart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product__content-3">
+                                                <h6><a href=" #">товар не найден</a></h6>
+                                                <div class="price mb-10">
+                                                    <span>цена не найдена</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="FiveCol" role="tabpanel" aria-labelledby="FiveCol-tab">
+                            <div class="tp-wrapper-2">
+                                {% for product in shop_product %}
+                                <div class="single-item-pd">
+                                    <div class="row align-items-center">
+                                        <div class="col-xl-9">
+                                            <div class="single-features-item single-features-item-df b-radius mb-20">
+                                                <div class="row  g-0 align-items-center">
+                                                    <div class="col-md-4">
+                                                        <div class="features-thum">
+                                                            {% if product.product_image %}
+                                                            <div class="features-product-image w-img">
+                                                                <a href="{{product.get_absolute_url}}"><img src="/media/{{product.product_image}}" alt="{{product.product_name}}"></a>
+                                                            </div>
+                                                            {% else %}
+                                                            <div class="features-product-image w-img">
+                                                                <a href="{{product.get_absolute_url}}"><img src="{% static 'assets/img/default_prod_img.png' %}" alt="default_prod_img"></a>
+                                                            </div>
+                                                            {% endif %}
+                                                            <div class="product__offer">
+                                                                {% if product.discount %}
+                                                                <span class="discount">{{product.discount}}%</span>
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="product-action">
+                                                                <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId-{{forloop.counter}}">
+                                                                    <i class="fal fa-eye"></i>
+                                                                    <i class="fal fa-eye"></i>
+                                                                </a>
+                                                                {% if product.user != request.user  %}
+                                                                <button class="icon-box icon-box-1 add_to_wishlist" data-id="{{product.id}}" data-url="{% url 'add_to_wishlist' product.id %}">
+                                                                    <i class="fal fa-heart"></i>
+                                                                    <i class="fal fa-heart"></i>
+                                                                </button>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="product__content product__content-d">
+                                                            <h6><a href=" #">{{product.product_name}}</a></h6>
+                                                            <div class="features-des">
+                                                                <ul>
+                                                                    <li><a href=" #">Екатеринбург, {{product.address}}</a></li>
+                                                                    <li><a href=" #">Вчера 09:34</a></li>
+                                                                    <!--<li><a href=" #">{{product.product_information|safe}}</a></li>-->
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3">
+                                            {% if product.discount %}
+                                                <div class="price mb-10">
+                                                    <span>{% call_sellprice product.price product.discount %} ₽</span>&nbsp;<del>{{product.price}} ₽</del>
+                                                </div>
+                                            {% else %}
+                                                <div class="price mb-10">
+                                                    <span>{{product.price}} ₽</span>
+                                                </div>
+                                            {% endif %}
+                                            
+                                            {% if product.user != request.user %}
+                                            <div class="stock-btn ">
+                                                <button type="button" class="cart-btn d-flex mb-10 align-items-center justify-content-center w-100">
+                                                Написать
+                                                </button>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <div class="single-item-pd">
+                                    <div class="row align-items-center">
+                                        <div class="col-xl-9">
+                                            <div class="single-features-item single-features-item-df b-radius mb-20">
+                                                <div class="row  g-0 align-items-center">
+                                                    <div class="col-md-4">
+                                                        <div class="features-thum">
+                                                            <div class="features-product-image w-img">
+                                                                <a href=" #"><img src="{% static 'assets/img/default_prod_img.png' %}" alt=""></a>
+                                                            </div>
+                                                            <div class="product-action">
+                                                                <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#">
+                                                                    <i class="fal fa-eye"></i>
+                                                                    <i class="fal fa-eye"></i>
+                                                                </a>
+                                                                <a href="#" class="icon-box icon-box-1">
+                                                                    <i class="fal fa-heart"></i>
+                                                                    <i class="fal fa-heart"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="product__content product__content-d">
+                                                            <h6><a href=" #">товар не найден</a></h6>
+                                                            <div class="features-des">
+                                                                <ul>
+                                                                    <li><a href=" #"><i class="fas fa-circle"></i>описание не найден</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3">
+                                            <div class="product-stock mb-15">
+                                                <h6>цена не найдена</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pagination-start -->
+                    <div class="tp-pagination text-center">
+                        <div class="row">
+                            <div class="col-xl-12">
+                             
+
+                                 {% if shop_product.has_other_pages %}
+                                <div class="basic-pagination pt-30 pb-30">
+                                    <nav>
+                                       <ul>
+                                        
+                                        {% if shop_product.has_previous %}
+                                            <li><a href="?page={{shop_product.previous_page_number}}"><i class="fal fa-angle-double-left"></i></a></li>
+                                        {% else %}
+                                            <li><a class="btn_disabled" href="#"><i class="fal fa-angle-double-left"></i></a></li>
+                                        {% endif %}
+                                         {% for i in shop_product.paginator.page_range %}
+                                            {% if shop_product.number == i %}
+                                                <li><a href="#" class="active">{{i}}</a></li>
+                                            {% else %}
+                                                <li><a href="?page={{i}}" class="no_active">{{i}}</a></li>
+                                            {%endif%}
+                                         {% endfor %}
+
+                                        {% if shop_product.has_next %}
+                                        <li><a href="?page={{shop_product.next_page_number}}"><i class="fal fa-angle-double-right"></i></a></li>
+                                        {% else %}
+                                            <li><a class="btn_disabled" href="#"><i class="fal fa-angle-double-right"></i></a></li>
+                                        {% endif %}
+                                       </ul>
+                                     </nav>
+                                 </div>
+                                 {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pagination-end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- shop-area-end -->
+
+    <!-- shop modal start -->
+    {% include 'proffer/includes/modal_shop.html' %}
+    <!-- shop modal end -->
+</main>
+
+{% endblock %}

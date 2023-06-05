@@ -1,0 +1,214 @@
+{% extends 'proffer/base.html' %}
+{% load static %}
+{% load product_price_tags %}
+{% block content %}
+
+<section id="about-us" class="py-5">
+    <div class="container">
+        {% include 'proffer/includes/alerts.html' %}
+        <div class="row">
+            <!--left sidebar-->
+            {% include 'proffer/includes/dashboard_sidebar.html' %}
+            <!--Content-->
+            <div class="col-md-9">
+                <div class="dashboard-area">
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- product-details-des-start -->
+                            <div class="product-details-des mb-60">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="product__details-des-tab">
+                                                <ul class="nav nav-tabs" id="productDesTab" role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link active" id="des-tab"
+                                                            data-bs-toggle="tab" data-bs-target="#des" type="button"
+                                                            role="tab" aria-controls="des" aria-selected="true">Мой дашборд
+                                                        </button>
+                                                    </li>
+                                                    <!--<li class="nav-item" role="presentation">
+                                                        <button class="nav-link" id="review-tab" data-bs-toggle="tab"
+                                                            data-bs-target="#review" type="button" role="tab"
+                                                            aria-controls="review" aria-selected="false">Отзывы (04)
+                                                        </button>
+                                                    </li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-content" id="prodductDesTaContent">
+                                        <div class="tab-pane fade active show" id="des" role="tabpanel"
+                                            aria-labelledby="des-tab">
+                                            <div class="product__details-des-wrapper">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-sm-6">
+                                                        <a class="member-item" href="#">
+                                                            <div class="card mb-2 mb-md-5 py-3">
+                                                                <div class="content">
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="col-6 d-flex justify-content-center align-items-center">
+                                                                            <div
+                                                                                class="icon-big text-warning text-center">
+                                                                                <i class="fas fa-scroll"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-6 d-flex justify-content-center align-items-center">
+                                                                            <div class="numbers">
+                                                                                <p>Объявления</p>
+                                                                                {{ product_counter }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-6">
+                                                        <a class="member-item" href="#">
+                                                            <div class="card mb-2 mb-md-5 py-3">
+                                                                <div class="content">
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="col-6 d-flex justify-content-center align-items-center">
+                                                                            <div class="icon-big text-info text-center"
+                                                                                title="1 new comment">
+                                                                                <div class="notif">1</div>
+                                                                                <i class="fas fa-bell"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-6 d-flex justify-content-center align-items-center">
+                                                                            <div class="numbers">
+                                                                                <p>Уведомления</p>
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-6">
+                                                        <a class="member-item" href="#">
+                                                            <div class="card mb-2 mb-md-5 py-3">
+                                                                <div class="content">
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="col-6 d-flex justify-content-center align-items-center">
+                                                                            <div
+                                                                                class="icon-big text-danger text-center">
+                                                                                <i class="fas fa-heart"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-6 d-flex justify-content-center align-items-center">
+                                                                            <div class="numbers">
+                                                                                <p>Избранное</p>
+                                                                                {{ wishlist_count }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-6">
+                                                        <a class="member-item" href="#">
+                                                            <div class="card mb-2 mb-md-5 py-3">
+                                                                <div class="content">
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="col-6 d-flex justify-content-center align-items-center">
+                                                                            <div class="icon-big text-twitter text-center"
+                                                                                title="1 new messages">
+                                                                                <div class="notif">0</div>
+                                                                                <i class="fas fa-envelope"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-6 d-flex justify-content-center align-items-center">
+                                                                            <div class="numbers">
+                                                                                <p>Сообщения</p>
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-6">
+                                                        <a class="member-item" href="#">
+                                                            <div class="card mb-2 mb-md-5 py-3">
+                                                                <div class="content">
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="col-6 d-flex justify-content-center align-items-center">
+                                                                            <div
+                                                                                class="icon-big text-success text-center">
+                                                                                <i class="fas fa-users"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-6 d-flex justify-content-center align-items-center">
+                                                                            <div class="numbers">
+                                                                                <p>Подписчики</p>
+                                                                                10
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-6">
+                                                        <!--<a class="member-item" href="#">
+                                                            <div class="card mb-2 mb-md-5 py-3">
+                                                                <div class="content">
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="col-6 d-flex justify-content-center align-items-center">
+                                                                            <div
+                                                                                class="icon-big text-facebook text-center">
+                                                                                <i class="fas fa-star"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-6 d-flex justify-content-center align-items-center">
+                                                                            <div class="numbers">
+                                                                                <p>Подписчики</p>
+                                                                                112
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>-->
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--<div class="tab-pane fade" id="review" role="tabpanel"
+                                            aria-labelledby="review-tab">
+                                            <div class="product__details-review">
+                                                <span>ok</span>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- product-details-des-end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

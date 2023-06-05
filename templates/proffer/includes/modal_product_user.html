@@ -1,0 +1,205 @@
+{% load static %}
+{% load product_price_tags %}
+     <!-- shop modal start -->
+     {% for product in product_for_user %}
+     <div class="modal fade" id="productModalId-{{forloop.counter}}" tabindex="-1" role="dialog" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered product__modal" role="document">
+             <div class="modal-content">
+                 <div class="product__modal-wrapper p-relative">
+                     <div class="product__modal-close p-absolute">
+                         <button data-bs-dismiss="modal"><i class="fal fa-times"></i></button>
+                     </div>
+                     <div class="product__modal-inner">
+                         <div class="row">
+                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                             <div class="product__modal-box">
+                                 <div class="tab-content" id="modalTabContent">
+
+                                     <div class="tab-pane fade show active" id="nav{{image.id}}" role="tabpanel" aria-labelledby="nav{{image.id}}-tab">
+                                         <div class="product__modal-img w-img">
+                                             <img src="/media/{{product.image_product_set.first.image}}" alt="">
+                                         </div>
+                                     </div>
+
+                                     {% for image in product.image_product_set.all %}
+                                     <div class="tab-pane fade show" id="nav{{image.id}}" role="tabpanel" aria-labelledby="nav{{image.id}}-tab">
+                                         <div class="product__modal-img w-img">
+                                             <img src="/media/{{image.image}}" alt="">
+                                         </div>
+                                     </div>
+                                     {% endfor %}
+                                 </div>
+                                 <ul class="nav nav-tabs" id="modalTab" role="tablist">
+                                     {% for image in product.image_product_set.all %}
+                                     <li class="nav-item" role="presentation">
+                                         <button class="nav-link" id="nav{{image.id}}-tab" data-bs-toggle="tab" data-bs-target="#nav{{image.id}}" type="button" role="tab" aria-controls="nav{{image.id}}" aria-selected="true">
+                                             <img src="/media/{{image.image}}" alt="" style="width: 85px; height: 85px;">
+                                         </button>
+                                     </li>
+                                     {% endfor %}
+                                 </ul>
+                             </div>
+                         </div>
+                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                             <div class="product__modal-content">
+                                 <h4><a href="#">{{product.product_name}}</a></h4>
+                                    {% if product.discount %}
+                                    <div class="product__price">
+                                        <span>{% call_sellprice product.price product.discount %} ₽</span>&nbsp;<del>{{product.price}} ₽</del>
+                                    </div>
+                                    {% else %}
+                                    <div class="price mb-10">
+                                        <span>{{product.price}} ₽</span>
+                                    </div>
+                                    {% endif %}
+                                 <div class="product__modal-des mt-20 mb-15">
+                                     <ul>
+                                         <li><a href="#">{{product.product_information|safe|truncatechars:600}}</a></li>                                    
+                                     </ul>
+                                     <ul>
+                                        <li><a href="#">Екатеринбург, {{product.address}}</a></li>
+                                     </ul>
+                                     <ul>
+                                        <li><a href="#">Вчера 09:34</a></li>
+                                     </ul>
+                                 </div>
+                                 <!--<div class="product__stock mb-20">
+                                     <span class="mr-10">Availability :</span>
+                                     <span>1795 in stock</span>
+                                 </div>-->
+                                 <div class="product__modal-form">
+                                     <!--<form action="#">-->
+                                     <div class="pro-quan-area d-lg-flex align-items-center">
+                                         <!--<div class="product-quantity mr-20 mb-25">
+                                             <div class="cart-plus-minus p-relative"><input type="text" value="1" /></div>
+                                         </div>-->
+                                         {% if product.user != request.user %}
+                                         <div class="pro-cart-btn mb-25">
+                                             <button class="cart-btn">Написать</button>
+                                         </div>
+                                         {% endif %}
+                                     </div>
+                                     <!--</form>-->
+                                 </div>
+                                 <div class="product__stock mb-30">
+                                     <ul>
+                                         <li><a href="#">
+                                             <span class="sku mr-10">Модель:</span>
+                                             <span>{{product.model_name}}</span></a>
+                                         </li>
+                                         <li><a href="#">
+                                             <span class="cat mr-10">Категория:</span>
+                                             <span>{{product.category}}</span></a>
+                                         </li>
+                                         <li><a href="#">
+                                             <span class="tag mr-10">Таги:</span>
+                                             <span>{{product.tags}}</span></a>
+                                         </li>
+                                     </ul>
+                                 </div>
+                             </div>
+                         </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     {% empty %}
+     <!-- shop modal start -->
+    <div class="modal fade" id="productModalId" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered product__modal" role="document">
+            <div class="modal-content">
+                <div class="product__modal-wrapper p-relative">
+                    <div class="product__modal-close p-absolute">
+                        <button data-bs-dismiss="modal"><i class="fal fa-times"></i></button>
+                    </div>
+                    <div class="product__modal-inner">
+                        <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="product__modal-box">
+                                <div class="tab-content" id="modalTabContent">
+                                    <div class="tab-pane fade show active" id="nav1" role="tabpanel" aria-labelledby="nav1-tab">
+                                        <div class="product__modal-img w-img">
+                                            <img src="{% static 'assets/img/quick-view/quick-view-1.jpg' %}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav2" role="tabpanel" aria-labelledby="nav2-tab">
+                                        <div class="product__modal-img w-img">
+                                            <img src="{% static 'assets/img/quick-view/quick-view-2.jpg' %}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav3" role="tabpanel" aria-labelledby="nav3-tab">
+                                        <div class="product__modal-img w-img">
+                                            <img src="{% static 'assets/img/quick-view/quick-view-3.jpg' %}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav4" role="tabpanel" aria-labelledby="nav4-tab">
+                                        <div class="product__modal-img w-img">
+                                            <img src="{% static 'assets/img/quick-view/quick-view-4.jpg' %}" alt="">
+                                        </div>
+                                    </div>
+                                    </div>
+                                <ul class="nav nav-tabs" id="modalTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="nav1-tab" data-bs-toggle="tab" data-bs-target="#nav1" type="button" role="tab" aria-controls="nav1" aria-selected="true">
+                                            <img src="{% static 'assets/img/quick-view/quick-nav-1.jpg' %}" alt="">
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="nav2-tab" data-bs-toggle="tab" data-bs-target="#nav2" type="button" role="tab" aria-controls="nav2" aria-selected="false">
+                                        <img src="{% static 'assets/img/quick-view/quick-nav-2.jpg' %}" alt="">
+                                        </button>
+                                    </li>                                 
+                                    </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="product__modal-content">
+                                <h4><a href=" #">Добавить продукт</a></h4>
+                                <div class="product__price">
+                                    <span>Добавить цену</span>
+                                </div>
+                                <div class="product__modal-des mt-20 mb-15">
+                                    <ul>
+                                        <li><a href="#"><i class="fas fa-circle"></i>Добавить описание</a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__modal-form">
+                                    <form action="#">
+                                    <div class="pro-quan-area d-lg-flex align-items-center">
+                                       <!-- <div class="product-quantity mr-20 mb-25">
+                                            <div class="cart-plus-minus p-relative"><input type="text" value="1" /></div>
+                                        </div>-->
+                                        <div class="pro-cart-btn mb-25">
+                                            <button class="cart-btn" type="submit">Написать</button>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                                <div class="product__stock mb-30">
+                                    <ul>
+                                        <li><a href="#">
+                                            <span class="sku mr-10">Модель: </span>
+                                            <span>-</span></a>
+                                        </li>
+                                        <li><a href="#">
+                                            <span class="cat mr-10">Категория:</span>
+                                            <span>-</span></a>
+                                        </li>
+                                        <li><a href="#">
+                                            <span class="tag mr-10">Тэги:</span>
+                                            <span>-</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     {% endfor %}
+     <!-- shop modal end -->

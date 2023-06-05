@@ -1,0 +1,57 @@
+{% extends 'proffer/base.html' %}
+{% load static %}
+{% load product_price_tags %}
+{% block content %}
+
+
+<!-- ============================ COMPONENT LOGIN   ================================= -->
+    <!-- account-area-start -->
+        <div class="account-area mt-70 mb-70">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                        <div class="login-form-container">
+                            <div class="basic-login">
+                                <h5>Регистрация</h5>
+                                {% include 'proffer/includes/alerts.html' %}
+
+                                <form action="{% url 'register' %}" method="POST">
+                                    {% csrf_token %}
+                                    <label for="firstname">Имя  <span>*</span></label>
+                                    {{register_form.first_name}}
+
+                                    <label for="lastname">Фамилия  <span>*</span></label>
+                                    {{register_form.last_name}}
+
+                                    <label for="telephone">Телефон  <span>*</span></label>
+                                    {{register_form.phone_number}}
+
+                                    <label for="email-id">Электронная почта <span>*</span></label>
+                                    {{register_form.email}}
+
+                                    <label for="password">Пароль <span>*</span></label>
+                                    {{register_form.password}}
+
+                                    <label for="confirm_password">Повторите пароль <span>*</span></label>
+                                    {{register_form.confirm_password}}
+
+                                    <div class="login-action mb-10 fix">
+                                        <p>Я соглашаюсь с <a href="#">Условия использования</a>, а также с передачей и обработкой моих данных в Proffer. Я подтверждаю своe совершеннолетие и ответственность за размещение объявления.</p>
+                                    </div>
+                                    <!--<a href="#" class="tp-in-btn w-100" type="submit">регистрация</a>-->
+                                    <input class="tp-in-btn w-100" type="submit" value="регистрация">
+                                </form>
+                                <p class="sign_up_bottom text-center mt-4">Уже есть аккаунт? <a href="{% url 'login' %}">войти</a></p>
+                                {{register_form.email.errors}}
+                                {{register_form.non_field_errors}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+            </div>
+        </div>
+    <!-- account-area-end -->
+
+{% endblock %}

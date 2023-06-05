@@ -1,0 +1,181 @@
+{% extends 'proffer/base.html' %}
+{% load static %}
+{% load product_price_tags %}
+{% block content %}
+
+
+<!-- ============================ COMPONENT ADD PRODUCT   ================================= -->
+
+    <!-- account-area-start -->
+    <div class="account-area mt-70 mb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    <div class="login-form-container">
+                        <div class="basic-login">
+                            
+                            <form class="well form-horizontal" action="{% url 'add_product' %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <fieldset>
+                                    <!-- Form Name -->
+                                    <legend><h2><b>Создание объявления</b></h2></legend><br>
+                                    
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                    <label class="col-md-8 control-label">Название <span>*</span></label>  
+                                    <div class="col-md-8 inputGroupContainer">
+                                    <div class="input-group">
+                                        {{form_product.product_name}}
+                                    </div>
+                                    <label class='text-danger'> {{ form_product.product_name.errors }}</label>
+                                    </div>
+                                    </div>
+                                    
+                                    <!-- select box-->
+                                    <div class="form-group mb-20"> 
+                                    <label class="col-md-4 control-label">Категория <span>*</span></label>
+                                        <div class="col-md-4 selectContainer">
+                                        <div class="input-group">{{form_product.category}}</div>
+                                    <label class='text-danger'> {{ form_product.category.errors }}</label>
+                                    </div>
+                                    </div>
+
+                                    <!-- select box-->
+                                    <div class="form-group mb-20"> 
+                                        <label class="col-md-4 control-label">Подкатегория <span>*</span></label>
+                                        <div class="col-md-4 selectContainer">
+                                            <div class="input-group">
+                                                {{form_product.subcategory}}
+                                            </div>
+                                            <label class='text-danger'> {{ form_product.subcategory.errors }}</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Цена <span>*</span></label>
+                                        <div class="col-md-2 inputGroupContainer">
+                                            <div class="input-group">
+                                                {{form_product.price}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Скидка</label>
+                                        <div class="col-md-2 inputGroupContainer">
+                                            <div class="input-group">
+                                                {{form_product.discount}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Text input-->
+                                    <div class="form-group mb-20">
+                                        <label class="col-md-4 control-label">Район <span>*</span></label>
+                                        <div class="col-md-4 inputGroupContainer">
+                                            <div class="input-group">
+                                                {{form_product.district}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-8 control-label">Адрес <span>*</span></label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+                                                {{form_product.address}}
+                                            </div>
+                                        </div>
+                                    </div>   
+
+                                    <!-- Fileinput-->
+                                    <div class="form-group">
+                                        <label class="col-md-8 control-label">Фото <span>*</span></label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+                                                {{form_product.product_image}}
+                                                <label class='text-danger'> {{ form_product.product_image.errors }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fileinput-->
+                                    <div class="form-group">
+                                        <label class="col-md-8 control-label">Дополнительные фото <span>*</span></label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+                                                {{image_formset.as_table}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Text input
+                                    <div class="form-group">
+                                        <label class="col-md-8 control-label">Модель</label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+                                                {{form_product.model_name}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    Textarea-->
+                                    <div class="form-group mb-20">
+                                        <label class="col-md-8 control-label">Описание <span>*</span></label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+                                                {{form_product.description}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Text input
+                                    <div class="form-group">
+                                        <label class="col-md-8 control-label">Теги</label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+                                                {{form_product.tags}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    Text input-->
+                                    <div class="form-group mb-40">
+                                        <label class="col-md-4 control-label">Я хочу <span>*</span></label>
+                                        <div class="col-md-4 selectContainer">
+                                            <div class="input-group">
+                                                {{form_product.status}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                        {% for field in form_product %}
+                                        {% if field.errors %}
+                                            {% for error in field.errors %}
+                                            <label class='text-danger'>{{ error }} </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <input class="tp-in-btn w-100" type="submit" value="Опубликовать">
+                                            </div>
+                                        </div>
+                                    </div>
+                                        
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        </div>
+    </div>
+    <!-- account-area-end -->
+
+{% endblock %}

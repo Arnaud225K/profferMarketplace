@@ -1,0 +1,147 @@
+{% extends 'proffer/base.html' %}
+{% load static %}
+{% load product_price_tags %}
+{% block content %}
+<section id="about-us" class="py-5">
+    <div class="container">
+
+        <div class="row">
+            <!--left sidebar-->
+            {% include 'proffer/includes/dashboard_sidebar.html' %}
+            <!--Content-->
+            <div class="col-md-9">
+                <div class="dashboard-area">
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- product-details-des-start -->
+                            <div class="product-details-des mb-60">
+                                <div class="container_message">
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="product__details-des-tab">
+                                                <ul class="nav nav-tabs" id="productDesTab" role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link active" id="des-tab"
+                                                            data-bs-toggle="tab" data-bs-target="#des" type="button"
+                                                            role="tab" aria-controls="des" aria-selected="true">Мои
+                                                            сообщения
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-content" id="prodductDesTaContent">
+                                        <div class="tab-pane fade active show" id="des" role="tabpanel"
+                                            aria-labelledby="des-tab">
+                                            <div class="product__details-des-wrapper">
+                                                <div class="messaging">
+                                                    <div class="inbox_msg">
+                                                        <div class="inbox_people">
+                                                            
+                                                                <div class="head-box-1">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <a href="{% url 'user_message' %}"><span><i class="fas fa-arrow-left" id="back"></i></span></a>
+                                                                            {% for direct in directs %}
+                                                                                {% if forloop.first %}
+                                                                                    {% if direct.reciepient.userprofile.profile_picture %}
+                                                                                        <span><img src="{{ direct.reciepient.userprofile.profile_picture.url }}" alt="sunil" width="40px"></span>
+                                                                                    {% else %}
+                                                                                        <span><img src="{% static 'assets/img/user_profile_default.png' %}" alt="sunil" width="40px"></span>
+                                                                                    {% endif %}
+                                                                                    <span> {{ direct.reciepient.first_name }} </span>
+                                                                                {% endif %}
+                                                                            {% endfor%}
+                                                                        </div>
+                                                                        <div class="col-md-6">
+        
+                                                                        </div>
+                                                                    </div>
+                                                                 </div>
+                                                            
+                                                            
+                                                                <div class="mesgs">
+                                                                    <div class="msg_history" id="chat-body">
+                                                                        {% for direct in directs %}
+                                                                            {% if request.user == direct.sender %}
+                                                                                <div class="incoming_msg">
+                                                                                    <div class="received_msg">
+                                                                                        <div class="received_withd_msg">
+                                                                                            <p>{{direct.body}}</p>
+                                                                                            <span class="time_date">{{direct.date|timesince}} назад</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% else %}
+                                                                            <div class="outgoing_msg">
+                                                                                <div class="sent_msg">
+                                                                                    <p>{{direct.body}}</p>
+                                                                                    <span class="time_date"> {{direct.date|timesince}} назад</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    <div class="type_msg">
+                                                                        <div class="input_msg_write">
+                                                                            <form action="" id="chat-form" method="POST">
+                                                                                {% csrf_token %}
+                                                                                <input type="hidden" id="to_user" name="to_user" value="{{active_direct}}"/>
+                                                                                <input type="text" id="body" name="body" class="write_msg" placeholder="Type a message"/>
+                                                                                <button class="msg_send_btn" type="submit" id="send-msg"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- product-details-des-end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+<script type="text/javascript">
+    $(document).on("submit", "#chat-form", function (e) {
+        e.preventDefault();
+        let _body = $("#body").val()
+        let _to_user = $("#to_user").val()
+
+        $.ajax({
+            type:"POST",
+            url: "{% url 'send-directs' %}",
+            data: {
+                body:_body,
+                to_user:_to_user,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function(success){
+                console.log("It's Working!")
+                let _html = '<div class="incoming_msg">\
+                    <div class="received_msg">\
+                        <div class="received_withd_msg">\
+                            <p>' + _body + '</p>\
+                            <span class="time_date">{{direct.date|timesince}} ago</span>\
+                        </div>\
+                    </div>\
+                </div>\
+                '
+                $(".msg_history").append(_html)
+            }
+        })
+        document.getElementById("body").value=""
+    })
+</script>
+{% endblock %}
